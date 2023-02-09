@@ -30,8 +30,7 @@ public class KafkaConfig {
     private int maxMessageSizeBytes;
 
     public static final double MAX_PARTITION_FETCH_BYTES_CONFIG_MULTIPLIER = 1.1;
-    public static final String TOPIC_VNOC_API_REQUEST = "vnoc-api-request";
-    public static final String TOPIC_VNOC_API_RESPONSE = "vnoc-api-response";
+
 
     public String getKafkaServers() {
         return kafkaServers;
