@@ -74,6 +74,20 @@ public class ZeebeKafkaStreams {
         return stream;
     }
 
+    @Bean
+    public KStream<String, GenericRecord> kafkaZeebeMessageSubscriptionStream() {
+        KStream stream = this.kStreamBuilder.stream("zeebe-message-subscription", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
+        this.logger.debug("Initialize zeebe-message-subscription kafka stream");
+        return stream;
+    }
+
+    @Bean
+    public KStream<String, GenericRecord> kafkaZeebeJobStream() {
+        KStream stream = this.kStreamBuilder.stream("zeebe-job", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
+        this.logger.debug("Initialize zeebe-job kafka stream");
+        return stream;
+    }
+
     private GenericRecord readValue(String value) {
         try {
             return objectMapper.readValue(value, GenericRecord.class);

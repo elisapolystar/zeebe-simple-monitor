@@ -31,6 +31,12 @@ public class KafkaStreamsService {
     private KafkaIncidentImporter kafkaIncidentImporter;
 
     @Autowired
+    private KafkaMessageSubscriptionImporter kafkaMessageSubscriptionImporter;
+
+    @Autowired
+    private KafkaJobImporter kafkaJobImporter;
+
+    @Autowired
     private ZeebeKafkaStreams zeebeKafkaStreams;
 
     @PostConstruct
@@ -74,6 +80,18 @@ public class KafkaStreamsService {
         zeebeKafkaStreams.kafkaZeebeIncidentStream().foreach((key, event) -> {
             if (event != null) {
                 kafkaIncidentImporter.importIncident(event);
+            }
+        });
+
+        zeebeKafkaStreams.kafkaZeebeMessageSubscriptionStream().foreach((key, event) -> {
+            if (event != null) {
+                kafkaMessageSubscriptionImporter.importMessageSubscription(event);
+            }
+        });
+
+        zeebeKafkaStreams.kafkaZeebeJobStream().foreach((key, event) -> {
+            if (event != null) {
+                kafkaJobImporter.importJob(event);
             }
         });
     }
