@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Map;
 
 @Component
@@ -48,7 +49,7 @@ public class KakaProcessAndElementImporter {
     entity.setKey(processDefinitionKey);
     entity.setBpmnProcessId((String)values.get("bpmnProcessId"));
     entity.setVersion(values.get("version") != null ? (int)values.get("version"):0);
-    entity.setResource((String)values.get("resource"));
+    entity.setResource(new String(Base64.getDecoder().decode((String)values.get("resource"))));
     entity.setTimestamp(record.getTimestamp());
     processRepository.save(entity);
     logger.info("importProcess done");
