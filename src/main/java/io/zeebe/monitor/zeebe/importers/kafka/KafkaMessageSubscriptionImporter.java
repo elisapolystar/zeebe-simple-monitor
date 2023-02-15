@@ -1,10 +1,10 @@
-package io.zeebe.monitor.zeebe.kafka.importers;
+package io.zeebe.monitor.zeebe.importers.kafka;
 
 import io.camunda.zeebe.protocol.record.intent.MessageStartEventSubscriptionIntent;
 import io.camunda.zeebe.protocol.record.intent.MessageSubscriptionIntent;
 import io.zeebe.monitor.entity.MessageSubscriptionEntity;
 import io.zeebe.monitor.repository.MessageSubscriptionRepository;
-import io.zeebe.monitor.zeebe.kafka.GenericRecord;
+import io.zeebe.monitor.rest.dto.GenericKafkaRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class KafkaMessageSubscriptionImporter {
 
   @Autowired private MessageSubscriptionRepository messageSubscriptionRepository;
 
-  public void importMessageSubscription(final GenericRecord record) {
+  public void importMessageSubscription(final GenericKafkaRecord record) {
 
     final MessageSubscriptionIntent intent =
         MessageSubscriptionIntent.valueOf(record.getIntent());
@@ -44,7 +44,7 @@ public class KafkaMessageSubscriptionImporter {
   }
 
   public void importMessageStartEventSubscription(
-      final GenericRecord record) {
+      final GenericKafkaRecord record) {
 
     final MessageStartEventSubscriptionIntent intent =
         MessageStartEventSubscriptionIntent.valueOf(record.getIntent());

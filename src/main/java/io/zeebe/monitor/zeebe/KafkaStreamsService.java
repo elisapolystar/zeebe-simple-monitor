@@ -1,7 +1,6 @@
 package io.zeebe.monitor.zeebe;
 
-import io.zeebe.monitor.zeebe.kafka.ZeebeKafkaStreams;
-import io.zeebe.monitor.zeebe.kafka.importers.*;
+import io.zeebe.monitor.zeebe.importers.kafka.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

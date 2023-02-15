@@ -1,9 +1,9 @@
-package io.zeebe.monitor.zeebe.kafka.importers;
+package io.zeebe.monitor.zeebe.importers.kafka;
 
 import io.camunda.zeebe.protocol.record.intent.MessageIntent;
 import io.zeebe.monitor.entity.MessageEntity;
 import io.zeebe.monitor.repository.MessageRepository;
-import io.zeebe.monitor.zeebe.kafka.GenericRecord;
+import io.zeebe.monitor.rest.dto.GenericKafkaRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class KafkaMessageImporter {
 
   @Autowired private MessageRepository messageRepository;
 
-  public void importMessage(final GenericRecord record) {
+  public void importMessage(final GenericKafkaRecord record) {
 
     final MessageIntent intent = MessageIntent.valueOf(record.getIntent());
     final long key = record.getKey();

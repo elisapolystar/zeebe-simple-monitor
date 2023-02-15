@@ -1,6 +1,5 @@
-package io.zeebe.monitor.zeebe.kafka.importers;
+package io.zeebe.monitor.zeebe.importers.kafka;
 
-import com.google.protobuf.ByteString;
 import io.camunda.zeebe.protocol.Protocol;
 import io.camunda.zeebe.protocol.record.intent.Intent;
 import io.camunda.zeebe.protocol.record.intent.ProcessInstanceIntent;
@@ -11,13 +10,12 @@ import io.zeebe.monitor.repository.ElementInstanceRepository;
 import io.zeebe.monitor.repository.ProcessInstanceRepository;
 import io.zeebe.monitor.repository.ProcessRepository;
 import io.zeebe.monitor.zeebe.ZeebeNotificationService;
-import io.zeebe.monitor.zeebe.kafka.GenericRecord;
+import io.zeebe.monitor.rest.dto.GenericKafkaRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
 
@@ -35,7 +33,7 @@ public class KakaProcessAndElementImporter {
   @Autowired
   private ZeebeNotificationService notificationService;
 
-  public void importProcess(final GenericRecord record) {
+  public void importProcess(final GenericKafkaRecord record) {
     final int partitionId = record.getPartitionId();
 
     if (partitionId != Protocol.DEPLOYMENT_PARTITION) {
@@ -55,7 +53,7 @@ public class KakaProcessAndElementImporter {
     logger.info("importProcess done");
   }
 
-  public void importProcessInstance(final GenericRecord record) {
+  public void importProcessInstance(final GenericKafkaRecord record) {
     if (((Number)record.getValue().get("processInstanceKey")).longValue() == record.getKey()) {
       addOrUpdateProcessInstance(record);
       logger.info("addOrUpdateProcessInstance done");
@@ -64,7 +62,7 @@ public class KakaProcessAndElementImporter {
     logger.info("addElementInstance done");
   }
 
-  private void addOrUpdateProcessInstance(final GenericRecord record) {
+  private void addOrUpdateProcessInstance(final GenericKafkaRecord record) {
 
     final Intent intent = ProcessInstanceIntent.valueOf(record.getIntent());
     final long timestamp = record.getTimestamp();
@@ -113,7 +111,7 @@ public class KakaProcessAndElementImporter {
     logger.info("Process instance Import done");
   }
 
-  private void addElementInstance(final GenericRecord record) {
+  private void addElementInstance(final GenericKafkaRecord record) {
     final ElementInstanceEntity entity = new ElementInstanceEntity();
     entity.setPartitionId(record.getPartitionId());
     entity.setPosition(record.getPosition());

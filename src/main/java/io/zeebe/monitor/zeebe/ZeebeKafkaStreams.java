@@ -1,6 +1,7 @@
-package io.zeebe.monitor.zeebe.kafka;
+package io.zeebe.monitor.zeebe;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.zeebe.monitor.rest.dto.GenericKafkaRecord;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.Consumed;
@@ -25,14 +26,14 @@ public class ZeebeKafkaStreams {
     private int maxMessageSizeBytes;
 
     @Bean
-    public KStream<String, GenericRecord> kafkaProcessInstanceStream() {
+    public KStream<String, GenericKafkaRecord> kafkaProcessInstanceStream() {
         KStream stream = this.kStreamBuilder.stream("zeebe-process-instance", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
         this.logger.debug("Initialize zeebe-process-instance kafka stream");
         return stream;
     }
 
     @Bean
-    public KStream<String, GenericRecord> kafkaProcessStream() {
+    public KStream<String, GenericKafkaRecord> kafkaProcessStream() {
         KStream stream = this.kStreamBuilder.stream("zeebe-process", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
         this.logger.debug("Initialize zeebe-process kafka stream");
         return stream;
@@ -40,57 +41,57 @@ public class ZeebeKafkaStreams {
 
 
     @Bean
-    public KStream<String, GenericRecord> kafkaZeebeErrorStream() {
+    public KStream<String, GenericKafkaRecord> kafkaZeebeErrorStream() {
         KStream stream = this.kStreamBuilder.stream("zeebe-error", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
         this.logger.debug("Initialize zeebe-error kafka stream");
         return stream;
     }
 
     @Bean
-    public KStream<String, GenericRecord> kafkaZeebeMessagreStream() {
+    public KStream<String, GenericKafkaRecord> kafkaZeebeMessagreStream() {
         KStream stream = this.kStreamBuilder.stream("zeebe-message", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
         this.logger.debug("Initialize zeebe-message kafka stream");
         return stream;
     }
 
     @Bean
-    public KStream<String, GenericRecord> kafkaZeebeIncidentStream() {
+    public KStream<String, GenericKafkaRecord> kafkaZeebeIncidentStream() {
         KStream stream = this.kStreamBuilder.stream("zeebe-incident", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
         this.logger.debug("Initialize zeebe-incident kafka stream");
         return stream;
     }
 
     @Bean
-    public KStream<String, GenericRecord> kafkaZeebeTimerStream() {
+    public KStream<String, GenericKafkaRecord> kafkaZeebeTimerStream() {
         KStream stream = this.kStreamBuilder.stream("zeebe-timer", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
         this.logger.debug("Initialize zeebe-timer kafka stream");
         return stream;
     }
 
     @Bean
-    public KStream<String, GenericRecord> kafkaZeebeVariableStream() {
+    public KStream<String, GenericKafkaRecord> kafkaZeebeVariableStream() {
         KStream stream = this.kStreamBuilder.stream("zeebe-variable", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
         this.logger.debug("Initialize zeebe-variable kafka stream");
         return stream;
     }
 
     @Bean
-    public KStream<String, GenericRecord> kafkaZeebeMessageSubscriptionStream() {
+    public KStream<String, GenericKafkaRecord> kafkaZeebeMessageSubscriptionStream() {
         KStream stream = this.kStreamBuilder.stream("zeebe-message-subscription", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
         this.logger.debug("Initialize zeebe-message-subscription kafka stream");
         return stream;
     }
 
     @Bean
-    public KStream<String, GenericRecord> kafkaZeebeJobStream() {
+    public KStream<String, GenericKafkaRecord> kafkaZeebeJobStream() {
         KStream stream = this.kStreamBuilder.stream("zeebe-job", Consumed.with(Serdes.String(), Serdes.String())).mapValues (value -> readValue(value));
         this.logger.debug("Initialize zeebe-job kafka stream");
         return stream;
     }
 
-    private GenericRecord readValue(String value) {
+    private GenericKafkaRecord readValue(String value) {
         try {
-            return objectMapper.readValue(value, GenericRecord.class);
+            return objectMapper.readValue(value, GenericKafkaRecord.class);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

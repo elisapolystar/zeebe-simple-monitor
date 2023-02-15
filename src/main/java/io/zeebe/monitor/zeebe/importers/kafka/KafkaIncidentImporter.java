@@ -1,9 +1,9 @@
-package io.zeebe.monitor.zeebe.kafka.importers;
+package io.zeebe.monitor.zeebe.importers.kafka;
 
 import io.camunda.zeebe.protocol.record.intent.IncidentIntent;
 import io.zeebe.monitor.entity.IncidentEntity;
 import io.zeebe.monitor.repository.IncidentRepository;
-import io.zeebe.monitor.zeebe.kafka.GenericRecord;
+import io.zeebe.monitor.rest.dto.GenericKafkaRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class KafkaIncidentImporter {
 
   @Autowired private IncidentRepository incidentRepository;
 
-  public void importIncident(final GenericRecord record) {
+  public void importIncident(final GenericKafkaRecord record) {
 
     final IncidentIntent intent = IncidentIntent.valueOf(record.getIntent());
     final long key = record.getKey();

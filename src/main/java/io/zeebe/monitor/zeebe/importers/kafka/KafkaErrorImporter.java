@@ -1,8 +1,8 @@
-package io.zeebe.monitor.zeebe.kafka.importers;
+package io.zeebe.monitor.zeebe.importers.kafka;
 
 import io.zeebe.monitor.entity.ErrorEntity;
 import io.zeebe.monitor.repository.ErrorRepository;
-import io.zeebe.monitor.zeebe.kafka.GenericRecord;
+import io.zeebe.monitor.rest.dto.GenericKafkaRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class KafkaErrorImporter {
 
   @Autowired private ErrorRepository errorRepository;
 
-  public void importError(final GenericRecord record) {
+  public void importError(final GenericKafkaRecord record) {
 
     final var position = record.getPosition();
     Map values = record.getValue();

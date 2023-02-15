@@ -1,8 +1,8 @@
-package io.zeebe.monitor.zeebe.kafka.importers;
+package io.zeebe.monitor.zeebe.importers.kafka;
 
 import io.zeebe.monitor.entity.VariableEntity;
 import io.zeebe.monitor.repository.VariableRepository;
-import io.zeebe.monitor.zeebe.kafka.GenericRecord;
+import io.zeebe.monitor.rest.dto.GenericKafkaRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class KafkaVariableImporter {
   @Autowired
   private VariableRepository variableRepository;
 
-  public void importVariable(final GenericRecord record) {
+  public void importVariable(final GenericKafkaRecord record) {
     final VariableEntity newVariable = new VariableEntity();
     newVariable.setPosition(record.getPosition());
     newVariable.setPartitionId(record.getPartitionId());

@@ -1,12 +1,11 @@
-package io.zeebe.monitor.zeebe.kafka;
+package io.zeebe.monitor.rest.dto;
 
-import java.time.Duration;
 import java.util.Map;
 
-public class GenericRecord {
+public class GenericKafkaRecord {
     private int partitionId;
     private Map value;
-    private Long key;
+    private long key;
     private Long timestamp;
     private String intent;
     private String rejectionType;
@@ -14,7 +13,7 @@ public class GenericRecord {
     private String valueType;
     private String brokerVersion;
     private String recordType;
-    private Long position;
+    private long position;
 
     public int getPartitionId() {
         return partitionId;
@@ -30,14 +29,6 @@ public class GenericRecord {
 
     public void setValue(Map value) {
         this.value = value;
-    }
-
-    public Long getKey() {
-        return key;
-    }
-
-    public void setKey(Long key) {
-        this.key = key;
     }
 
     public Long getTimestamp() {
@@ -96,11 +87,19 @@ public class GenericRecord {
         this.recordType = recordType;
     }
 
-    public Long getPosition() {
+    public long getKey() {
+        return key;
+    }
+
+    public void setKey(long key) {
+        this.key = key;
+    }
+
+    public long getPosition() {
         return position;
     }
 
-    public void setPosition(Long position) {
+    public void setPosition(long position) {
         this.position = position;
     }
 

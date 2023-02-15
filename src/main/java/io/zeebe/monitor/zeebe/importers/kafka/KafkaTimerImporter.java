@@ -1,9 +1,9 @@
-package io.zeebe.monitor.zeebe.kafka.importers;
+package io.zeebe.monitor.zeebe.importers.kafka;
 
 import io.camunda.zeebe.protocol.record.intent.TimerIntent;
 import io.zeebe.monitor.entity.TimerEntity;
 import io.zeebe.monitor.repository.TimerRepository;
-import io.zeebe.monitor.zeebe.kafka.GenericRecord;
+import io.zeebe.monitor.rest.dto.GenericKafkaRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class KafkaTimerImporter {
 
   @Autowired private TimerRepository timerRepository;
 
-  public void importTimer(final GenericRecord record) {
+  public void importTimer(final GenericKafkaRecord record) {
 
     final TimerIntent intent = TimerIntent.valueOf(record.getIntent());
     final long key = record.getKey();

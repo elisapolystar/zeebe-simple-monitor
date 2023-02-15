@@ -99,7 +99,6 @@ public class KafkaConfig {
 
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
     public KafkaStreamsConfiguration streamsConfig() {
-        System.out.println("bbot"+getKafkaServers());
         Map<String, Object> props = new HashMap<>();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, this.getApplicationId());
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, this.getKafkaServers());
