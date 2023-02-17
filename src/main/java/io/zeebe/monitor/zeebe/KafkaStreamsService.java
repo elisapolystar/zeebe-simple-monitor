@@ -1,8 +1,7 @@
 package io.zeebe.monitor.zeebe;
 
-import io.zeebe.monitor.zeebe.importers.kafka.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.zeebe.monitor.zeebe.importers.*;
+import io.zeebe.monitor.zeebe.util.BuildRecordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,30 +9,29 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class KafkaStreamsService {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    private KakaProcessAndElementImporter processAndElementImporter;
+    private ProcessAndElementImporter processAndElementImporter;
 
     @Autowired
-    private KafkaTimerImporter timerImporter;
+    private TimerImporter timerImporter;
 
     @Autowired
-    private KafkaVariableImporter variableImporter;
+    private VariableImporter variableImporter;
 
     @Autowired
-    private KafkaErrorImporter kafkaErrorImporter;
+    private ErrorImporter errorImporter;
 
     @Autowired
-    private KafkaMessageImporter kafkaMessageImporter;
+    private MessageImporter messageImporter;
 
     @Autowired
-    private KafkaIncidentImporter kafkaIncidentImporter;
+    private IncidentImporter incidentImporter;
 
     @Autowired
-    private KafkaMessageSubscriptionImporter kafkaMessageSubscriptionImporter;
+    private MessageSubscriptionImporter messageSubscriptionImporter;
 
     @Autowired
-    private KafkaJobImporter kafkaJobImporter;
+    private JobImporter jobImporter;
 
     @Autowired
     private ZeebeKafkaStreams zeebeKafkaStreams;
@@ -41,57 +39,43 @@ public class KafkaStreamsService {
     @PostConstruct
     public void start() {
         zeebeKafkaStreams.kafkaProcessStream().foreach((key, event) -> {
-            if (event != null) {
-                processAndElementImporter.importProcess(event);
-            }
+            processAndElementImporter.importProcess(BuildRecordUtil.buildProcessRecord(event));
         });
 
         zeebeKafkaStreams.kafkaProcessInstanceStream().foreach((key, event) -> {
-            if (event != null) {
-                processAndElementImporter.importProcessInstance(event);
-            }
+                processAndElementImporter.importProcessInstance(BuildRecordUtil.buildProcessInstanceRecord(event));
         });
 
         zeebeKafkaStreams.kafkaZeebeTimerStream().foreach((key, event) -> {
-            if (event != null) {
-                timerImporter.importTimer(event);
-            }
+                timerImporter.importTimer(BuildRecordUtil.buildTimerRecord(event));
         });
 
         zeebeKafkaStreams.kafkaZeebeVariableStream().foreach((key, event) -> {
-            if (event != null) {
-                variableImporter.importVariable(event);
-            }
+                variableImporter.importVariable(BuildRecordUtil.buildVariableRecord(event));
         });
 
         zeebeKafkaStreams.kafkaZeebeErrorStream().foreach((key, event) -> {
-            if (event != null) {
-                kafkaErrorImporter.importError(event);
-            }
+            errorImporter.importError(BuildRecordUtil.buildErrorRecord(event));
         });
 
         zeebeKafkaStreams.kafkaZeebeMessagreStream().foreach((key, event) -> {
-            if (event != null) {
-                kafkaMessageImporter.importMessage(event);
-            }
+            messageImporter.importMessage(BuildRecordUtil.buildMessageRecord(event));
         });
 
         zeebeKafkaStreams.kafkaZeebeIncidentStream().foreach((key, event) -> {
-            if (event != null) {
-                kafkaIncidentImporter.importIncident(event);
-            }
+            incidentImporter.importIncident(BuildRecordUtil.buildIncidentRecord(event));
         });
 
         zeebeKafkaStreams.kafkaZeebeMessageSubscriptionStream().foreach((key, event) -> {
-            if (event != null) {
-                kafkaMessageSubscriptionImporter.importMessageSubscription(event);
-            }
+                messageSubscriptionImporter.importMessageSubscription(BuildRecordUtil.buildMessageSubscriptionRecord(event));
+        });
+
+        zeebeKafkaStreams.kafkaZeebeMessageSubscriptionStartEventStream().foreach((key, event) -> {
+            messageSubscriptionImporter.importMessageStartEventSubscription(BuildRecordUtil.buildMessageStartEventSubscriptionRecord(event));
         });
 
         zeebeKafkaStreams.kafkaZeebeJobStream().foreach((key, event) -> {
-            if (event != null) {
-                kafkaJobImporter.importJob(event);
-            }
+                jobImporter.importJob(BuildRecordUtil.buildJobRecord(event));
         });
     }
 }

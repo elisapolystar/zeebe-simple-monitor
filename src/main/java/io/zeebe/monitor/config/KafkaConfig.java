@@ -20,8 +20,6 @@ import java.util.Map;
 public class KafkaConfig {
     @Value("${kafkaBootstrapServers:localhost:9092}")
     public String kafkaServers;
-    @Value("${kafkaSchemaRegistryUrl:localhost:8081}")
-    public String schemaRegistry;
     @Value("${kafka.streams.applicationId:zeebe-simple-monitor}")
     public String applicationId;
     @Value("${kafka.streams.numOfThreads:4}")
@@ -31,26 +29,12 @@ public class KafkaConfig {
 
     public static final double MAX_PARTITION_FETCH_BYTES_CONFIG_MULTIPLIER = 1.1;
 
-
     public String getKafkaServers() {
         return kafkaServers;
     }
 
-    public String getSchemaRegistry() {
-        return schemaRegistry;
-    }
-
     public int getMaxMessageSizeBytes() {
         return this.maxMessageSizeBytes;
-    }
-
-    public void setMaxMessageSizeBytes(int var1) {
-        this.maxMessageSizeBytes = var1;
-    }
-
-    @Bean({"schemaRegistry"})
-    public String getSchemaRegistryUrl() {
-        return this.schemaRegistry;
     }
 
     public String getApplicationId() {
@@ -59,18 +43,6 @@ public class KafkaConfig {
     public int getNumOfThreads() {
         return numOfThreads;
     }
-
-
-    public void setKafkaServers(@NotNull String var1) {
-        this.kafkaServers = var1;
-    }
-
-
-    public void setSchemaRegistry(@NotNull String var1) {
-        this.schemaRegistry = var1;
-    }
-
-
 
     private Map getSecurityProps() {
         Map<String, Object> props = new HashMap<>();

@@ -6,9 +6,11 @@ public class GenericKafkaRecord {
     private int partitionId;
     private Map value;
     private long key;
-    private Long timestamp;
+    private long timestamp;
     private String intent;
     private String rejectionType;
+
+    private String rejectionReason;
     private int sourceRecordPosition;
     private String valueType;
     private String brokerVersion;
@@ -31,11 +33,11 @@ public class GenericKafkaRecord {
         this.value = value;
     }
 
-    public Long getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -101,6 +103,14 @@ public class GenericKafkaRecord {
 
     public void setPosition(long position) {
         this.position = position;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 
     @Override
