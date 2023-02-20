@@ -3,10 +3,12 @@ package io.zeebe.monitor.zeebe;
 import io.zeebe.monitor.zeebe.importers.*;
 import io.zeebe.monitor.zeebe.util.BuildRecordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+@Profile("kafka")
 @Component
 public class KafkaStreamsService {
     @Autowired
