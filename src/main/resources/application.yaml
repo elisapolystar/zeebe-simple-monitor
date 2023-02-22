@@ -67,12 +67,12 @@ spring:
     activate:
       on-profile: kafka
   datasource:
-    url: ${POSTGRES_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
-    username: ${POSTGRES_DATABASE_USER:postgres}
-    password: ${POSTGRES_DATABASE_PASSWORD:temp}
-    driverClassName: org.postgresql.Driver
+    url: ${spring.datasource.url:jdbc:postgresql://localhost:5432/postgres}
+    username: ${spring.datasource.username:postgres}
+    password: ${spring.datasource.password:temp}
+    driverClassName: ${spring.datasource.driverClassName:org.postgresql.Driver}
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: ${spring.jpa.properties.hibernate.dialect:org.hibernate.dialect.PostgreSQLDialect}
     hibernate:
       ddl-auto: update
 
