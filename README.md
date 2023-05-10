@@ -36,7 +36,7 @@ The docker image for the worker is published to [GitHub Packages](https://github
 docker pull ghcr.io/camunda-community-hub/zeebe-simple-monitor:2.4.1
 ```
 
-* for kafka exporter, ensure active profile is kafka and a Zeebe broker is running with [Kafka exporter](https://github.com/camunda-community-hub/zeebe-kafka-exporter)
+* for kafka exporter, ensure active profile is "kafka" and a Zeebe broker is running with [Kafka exporter](https://github.com/camunda-community-hub/zeebe-kafka-exporter)
 * for hazelcast exporter, ensure that a Zeebe broker is running with a [Hazelcast exporter](https://github.com/camunda-community-hub/zeebe-hazelcast-exporter#install) (>= `1.0.0`)  
   * forward the Hazelcast port to the docker container (default: `5701`)
   *  configure the connection to Hazelcast by setting `zeebe.client.worker.hazelcast.connection` (default: `localhost:5701`)
