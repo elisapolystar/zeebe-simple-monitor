@@ -43,17 +43,21 @@ logging:
   level:
     root: ERROR
     io.zeebe: INFO
-    io.zeebe.monitor: DEBUG
-    com.hazelcast: WARN
 
 management:
+  endpoint:
+    metrics.enabled: true
+    prometheus.enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
+      diskspace.enabled: true
   endpoints:
     web:
       exposure:
-        include: health, metrics, prometheus
-  metrics:
-    tags:
-      application: zeebe-simple-monitor
+        include: health, metrics, prometheus, refresh
+  prometheus.metrics.export.enabled: true
 
 white-label:
   logo.path: img/logo.png
@@ -71,3 +75,4 @@ kafkaSchemaRegistryUrl: ${SCHEMA_REGISTRY_URL:http://localhost:8081}
 kafka:
   streams:
     maxMessageSizeBytes: ${KAFKA_MAX_MESSAGE_SIZE_BYTES:5242880}
+    numOfThreads: ${NUMBER_OF_STREAMS_THREAD:4}
