@@ -239,7 +239,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>9.22.2</version>
+            <version>10.4.1</version>
         </dependency>
 
         <dependency>
