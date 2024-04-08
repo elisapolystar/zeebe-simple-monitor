@@ -1,11 +1,11 @@
-FROM azul/zulu-openjdk-alpine:17-jre
+FROM azul/zulu-openjdk-alpine:21-jre
 
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache libc6-compat libstdc++ && \
     rm -rf /var/cache/apk/*
 
-COPY target/zeebe-simple-monitor-2.4.2.jar /app/simple-monitor.jar
+COPY target/zeebe-simple-monitor-2.7.2.jar /app/simple-monitor.jar
 COPY src/main/resources/application.yaml /config/
 
 EXPOSE 8082
