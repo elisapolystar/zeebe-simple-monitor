@@ -22,7 +22,7 @@
         <version.zeebe.spring>8.2.4</version.zeebe.spring>
         <hazelcast.exporter.version>1.4.0</hazelcast.exporter.version>
 
-        <kafka.version>3.6.0</kafka.version>
+        <kafka.version>3.7.0</kafka.version>
         <spring.kafka.version>3.1.4</spring.kafka.version>
 
         <spring.boot.version>3.2.5</spring.boot.version>
