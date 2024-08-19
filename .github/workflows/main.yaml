@@ -23,6 +23,7 @@ jobs:
         run: |
           last_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
           next_tag="${last_tag%.*}.$((${last_tag##*.}+1))"
+          echo "$next_tag" > tag_name.txt
           echo "tag_name=$next_tag" >> $GITHUB_ENV
 
       - name: Create Tag
@@ -48,3 +49,9 @@ jobs:
               tag_name: "${{ env.tag_name }}",
               generate_release_notes: true
             });
+
+      - name: Upload Tag as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tag_name
+          path: tag_name.txt
