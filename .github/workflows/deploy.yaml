@@ -4,6 +4,7 @@ on:
   workflow_run:
     workflows: [Main]
     types: [completed]
+  workflow_dispatch: { }
 
 env:
   REGISTRY: ghcr.io
@@ -51,6 +52,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
       - name: Download the tarball
         uses: actions/download-artifact@v4
         with:
