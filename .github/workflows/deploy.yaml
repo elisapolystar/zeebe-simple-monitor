@@ -107,7 +107,7 @@ jobs:
           context: .
           no-cache: false
           push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           provenance: false
           platforms: linux/amd64,linux/arm64
