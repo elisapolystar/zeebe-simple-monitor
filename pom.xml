@@ -18,19 +18,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <zeebe.version>8.2.15</zeebe.version>
-        <version.zeebe.spring>8.2.4</version.zeebe.spring>
+        <zeebe.version>8.4.6</zeebe.version>
+        <version.zeebe.spring>8.4.2</version.zeebe.spring>
         <hazelcast.exporter.version>1.4.0</hazelcast.exporter.version>
 
         <kafka.version>3.7.0</kafka.version>
-        <spring.kafka.version>3.1.4</spring.kafka.version>
+        <spring.kafka.version>3.2.3</spring.kafka.version>
 
-        <spring.boot.version>3.2.5</spring.boot.version>
+        <spring.boot.version>3.3.2</spring.boot.version>
         <!-- pin Hazelcast version because of spring-boot-dependencies -->
         <version.hazelcast>5.3.7</version.hazelcast>
 
         <!-- release parent settings -->
-        <version.java>17</version.java>
+        <version.java>21</version.java>
         <java.version>${version.java}</java.version>
 
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -178,7 +178,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.15.2</version>
+            <version>2.15.4</version>
         </dependency>
 
         <dependency>
@@ -194,7 +194,7 @@
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
-            <version>5.0.0</version>
+            <version>5.1.0</version>
             <classifier>jakarta</classifier>
             <scope>provided</scope>
         </dependency>
@@ -202,8 +202,15 @@
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
-            <version>5.0.0</version>
+            <version>5.1.0</version>
             <classifier>jakarta</classifier>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.github.classgraph/classgraph -->
+        <dependency>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>4.8.174</version>
         </dependency>
 
         <dependency>
@@ -225,9 +232,15 @@
         </dependency>
 
         <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.6.0.Final</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <version>8.2.0</version>
+            <version>9.0.0</version>
         </dependency>
 
         <dependency>
@@ -239,19 +252,19 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>10.11.0</version>
+            <version>10.17.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-mysql</artifactId>
-            <version>10.11.0</version>
+            <version>10.17.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-database-postgresql</artifactId>
-            <version>10.11.0</version>
+            <version>10.14.0</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -261,12 +274,12 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
-            <version>0.48</version>
+            <version>0.52</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>5.3.2</version>
+            <version>5.3.3</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -306,21 +319,21 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.10.1</version>
+            <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
-            <version>1.19.1</version>
+            <version>1.19.8</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mysql</artifactId>
-            <version>1.19.1</version>
+            <version>1.19.8</version>
             <scope>test</scope>
         </dependency>
 
@@ -347,12 +360,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>3.4.5</version>
+                    <version>3.6.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.sonatype.plugins</groupId>
                     <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.13</version>
+                    <version>1.7.0</version>
                 </plugin>
                 <!--Plugin for query-dsl-->
                 <plugin>
@@ -406,7 +419,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.8.0</version>
                 <executions>
                     <execution>
                         <id>copy</id>
@@ -438,7 +451,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.5</version>
             </plugin>
 
             <plugin>
@@ -477,7 +490,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>3.2.5</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -524,6 +537,11 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>maven_central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>
 
