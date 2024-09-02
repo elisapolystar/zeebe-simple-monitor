@@ -27,6 +27,10 @@ public class KafkaConfig {
     public int numOfThreads;
     @Value("${kafka.streams.maxMessageSizeBytes:5242880}")
     private int maxMessageSizeBytes;
+    @Value("${kafka.streams.maxPollRecords:30}")
+    public int maxPollRecords;
+    @Value("${kafka.streams.maxPollIntervalMs:600000}")
+    public int maxPollIntervalMs;
 
     public static final double MAX_PARTITION_FETCH_BYTES_CONFIG_MULTIPLIER = 1.1;
 
@@ -43,6 +47,12 @@ public class KafkaConfig {
     }
     public int getNumOfThreads() {
         return numOfThreads;
+    }
+    public int getMaxPollIntervalMs() {
+        return maxPollIntervalMs;
+    }
+    public int getMaxPollRecords() {
+        return maxPollRecords;
     }
 
     private Map getSecurityProps() {
@@ -81,6 +91,8 @@ public class KafkaConfig {
         props.put("num.stream.threads", this.getNumOfThreads());
         props.put("max.request.size", this.getMaxMessageSizeBytes());
         props.put("max.partition.fetch.bytes", (int)((double)this.getMaxMessageSizeBytes() * 1.1));
+        props.put("max.poll.records", this.getMaxPollRecords());
+        props.put("max.poll.interval.ms", this.getMaxPollIntervalMs());
         props.putAll(this.getSecurityProps());
         return new KafkaStreamsConfiguration(props);
     }
