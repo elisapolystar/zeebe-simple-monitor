@@ -91,8 +91,8 @@ public class KafkaConfig {
         props.put("num.stream.threads", this.getNumOfThreads());
         props.put("max.request.size", this.getMaxMessageSizeBytes());
         props.put("max.partition.fetch.bytes", (int)((double)this.getMaxMessageSizeBytes() * 1.1));
-        props.put("max.poll.interval.ms", this.getMaxPollRecords());
-        props.put("max.poll.records", this.getMaxPollIntervalMs());
+        props.put("max.poll.records", this.getMaxPollRecords());
+        props.put("max.poll.interval.ms", this.getMaxPollIntervalMs());
         props.putAll(this.getSecurityProps());
         return new KafkaStreamsConfiguration(props);
     }
