@@ -15,4 +15,5 @@ public enum BpmnElementType {
     EVENT_BASED_GATEWAY,
     SUB_PROCESS,
     SEQUENCE_FLOW,
+    INTERMEDIATE_THROW_EVENT
 }
