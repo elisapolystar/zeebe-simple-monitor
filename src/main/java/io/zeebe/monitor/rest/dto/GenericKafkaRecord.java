@@ -61,7 +61,7 @@ public class GenericKafkaRecord {
         return sourceRecordPosition;
     }
 
-    public void setSourceRecordPosition(int sourceRecordPosition) {
+    public void setSourceRecordPosition(long sourceRecordPosition) {
         this.sourceRecordPosition = sourceRecordPosition;
     }
 
