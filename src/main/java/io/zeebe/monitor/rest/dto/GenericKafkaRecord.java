@@ -11,7 +11,7 @@ public class GenericKafkaRecord {
     private String rejectionType;
 
     private String rejectionReason;
-    private int sourceRecordPosition;
+    private long sourceRecordPosition;
     private String valueType;
     private String brokerVersion;
     private String recordType;
@@ -57,7 +57,7 @@ public class GenericKafkaRecord {
         this.rejectionType = rejectionType;
     }
 
-    public int getSourceRecordPosition() {
+    public long getSourceRecordPosition() {
         return sourceRecordPosition;
     }
 
